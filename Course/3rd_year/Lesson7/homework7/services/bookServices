@@ -1,0 +1,28 @@
+public class bookService 
+{
+    private readonly List<book> _books = new(); 
+
+    public void AddBook(book book) => _books.Add(book);
+
+    public void EditBook(book book)
+    {
+        var existingBook = GetBook(book.bookId);
+        if (existingBook != null)
+        {
+            existingBook.Update(book); 
+        }
+    }
+
+    public void DeleteBook(int bookId)
+    {
+        var book = GetBook(bookId);
+        if (book != null)
+        {
+            _books.Remove(book);
+        }
+    }
+
+    public book GetBook(int bookId) => _books.FirstOrDefault(b => b.bookId == bookId);
+
+    public IEnumerable<Book> GetBooks() => _books; 
+}
